@@ -18,7 +18,24 @@
 .env.test.local
 .env.production.local
 .env 
-/venv
+/my-app/ai/venv/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# Ignore the entire virtual environment
+venv/
+ai/venv/
+
+# Ignore compiled Python files
+*.pyc
+__pycache__/
+
+# Ignore package metadata and installed packages
+Lib/site-packages/
+*.dist-info/
+
+# Ignore Windows executables
+*.exe
+
+# Ignore log files
+*.log
