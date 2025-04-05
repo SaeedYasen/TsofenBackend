@@ -33,6 +33,22 @@ def login():
     logging.warning(f"Failed login attempt for {username}.")
     return jsonify({"msg": "Invalid credentials"}), 401
 
+
+@auth.route('/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+
+    if username in users:
+        logging.warning(f"Signup attempt with existing username: {username}")
+        return jsonify({"msg": "Username already exists"}), 400
+
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+    users[username] = hashed_password
+    logging.info(f"User {username} signed up successfully")
+    return jsonify({"msg": "User created successfully"}), 201
+
 # حماية مسار خاص بالمستخدمين المسجلين
 @auth.route('/protected', methods=['GET'])
 @jwt_required()
