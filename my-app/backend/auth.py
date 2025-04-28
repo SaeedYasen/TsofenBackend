@@ -9,12 +9,21 @@ def signup():
     data = request.get_json()
     username = data.get("username")
     password = data.get("password")
-
+    name = data.get("name")
+    surname = data.get("surname")
+    email = data.get("email")
+    country_code = data.get("country_code")
+    area_code = data.get("area_code")
+    number = data.get("number")
     db = current_app.db
     if db.users.find_one({"username": username}):
         return jsonify({"msg": "Username already exists"}), 400
 
-    db.users.insert_one({"username": username, "password": password})
+    db.users.insert_one({"username": username, "password": password,"surname": surname,"name":name,
+        "email": email,
+        "country_code": country_code,
+        "area_code": area_code,
+        "number": number})
     return jsonify({"msg": "User created successfully"}), 201
 
 @auth.route('/login', methods=['POST'])

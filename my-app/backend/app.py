@@ -7,12 +7,14 @@ from flask_cors import CORS
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
+
+
 # أضف مجلد المشروع للجذر حتى يمكن استيراد ai و auth و gbooking
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from auth import auth
-from gbooking import gbooking
-from ai.ChatTestV3 import chat_bp
+
+from ai.chat import chat_bp
 
 load_dotenv()
 
@@ -28,7 +30,7 @@ app.db = client["mydatabase"]
 
 # Register blueprints
 app.register_blueprint(auth, url_prefix="/auth")
-app.register_blueprint(gbooking, url_prefix="/gbooking")
+
 app.register_blueprint(chat_bp, url_prefix="/api")
 
 if __name__ == "__main__":
